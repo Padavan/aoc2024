@@ -17,7 +17,7 @@ OBJS := $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRCS))
 # OBJS := day1.o
 # OBJS = /src/helpers.o
 
-OBJS = build/day1.o build/day2.o build/utils.o build/advent.o
+OBJS = build/day1.o build/day2.o build/day3.o build/utils.o build/advent.o
 # SRCS = 
 
 # %.o: %.c $(DEPS)
@@ -32,7 +32,7 @@ $(PROGRAM): $(OBJS)
 	@echo $(OBJS)
 	mkdir -p $(BUILD_DIR)
 # 	$(CC) -o $(BUILD_DIR)/$(PROGRAM) $(SRCS) 
-	$(CC) -o build/advent build/advent.o build/day1.o build/day2.o build/utils.o $(CFLAGS)
+	$(CC) -o build/advent $(OBJS) $(CFLAGS)
 	@rm $(BUILD_DIR)/*.o
 
 # $(BUILD_DIR):
