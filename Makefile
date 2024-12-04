@@ -17,7 +17,9 @@ OBJS := $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRCS))
 # OBJS := day1.o
 # OBJS = /src/helpers.o
 
-OBJS = build/day1.o build/day2.o build/day3.o build/utils.o build/advent.o
+
+
+OBJS = build/day1.o build/day2.o build/day3.o build/day4.o build/utils.o build/matrix_utils.o build/advent.o
 # SRCS = 
 
 # %.o: %.c $(DEPS)
@@ -49,7 +51,7 @@ lint:
 
 format:
 # 	@$(FORMATTER) -style=file -i $(SRC_DIR)/*
-	@$(FORMATTER) -style=file -i $(SRC_DIR)/*
+	@$(FORMATTER) --style=WebKit -i $(SRC_DIR)/*
 	
 .PHONY: clean
 
