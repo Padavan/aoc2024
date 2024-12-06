@@ -1,4 +1,3 @@
-
 #include "day4.h"
 #include "matrix_utils.h"
 #include <stdbool.h>

@@ -19,7 +19,7 @@ OBJS := $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRCS))
 
 
 
-OBJS = build/day1.o build/day2.o build/day3.o build/day4.o build/utils.o build/matrix_utils.o build/advent.o
+OBJS = build/day1.o build/day2.o build/day3.o build/day4.o build/day5.o build/utils.o build/matrix_utils.o build/advent.o
 # SRCS = 
 
 # %.o: %.c $(DEPS)

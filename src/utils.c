@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,13 +16,28 @@ int find_character_index(char str[], char ch)
     return -1;
 }
 
+int find_number_index(int list[], char ch)
+{
+    // size_t length = ;
+    int index = 0;
+    while (list[index] != '\0') {
+
+        if (list[index] == ch) {
+            return index;
+        }
+        index++;
+    }
+
+    return -1;
+}
+
 // get substring
 char* get_substring(size_t start, size_t end, char string[])
 {
     assert(end > start);
     size_t length = end - start;
 
-    char* substring = malloc(sizeof(char) * length);
+    char* substring = malloc(sizeof(char) * 2);
 
     for (size_t i = 0; i < length; i++) {
         substring[i] = string[i + start];
@@ -59,4 +75,15 @@ int get_line_count(char filepath[])
     free(line);
 
     return line_count;
+}
+
+bool includes(int* list, int target)
+{
+    int index = 0;
+    while (list[index] != '\0') {
+        if (list[index] == target) {
+            return true;
+        }
+    }
+    return false;
 }
