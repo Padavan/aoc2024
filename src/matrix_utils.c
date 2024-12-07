@@ -24,7 +24,7 @@ int* move_point(int first[2], int second[2])
     return result;
 }
 
-_Bool is_inbound(int point[2], int width, int height)
+bool is_inbound(int point[2], int width, int height)
 {
     int x = point[0];
     int y = point[1];
