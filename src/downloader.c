@@ -9,8 +9,8 @@
 //   curl = curl_easy_init();
 //   if(curl) {
 //     curl_easy_setopt(curl, CURLOPT_URL, "https://example.com");
-//     /* example.com is redirected, so we tell libcurl to follow redirection */
-//     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+//     /* example.com is redirected, so we tell libcurl to follow redirection
+//     */ curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
 
 //     /* Perform the request, res gets the return code */
 //     res = curl_easy_perform(curl);
