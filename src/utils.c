@@ -99,3 +99,8 @@ int power(int base, int exp) {
 
   return result;
 }
+
+int get_digit_count(long long number) {
+  if (number < 10) return 1;
+  return 1 + get_digit_count(number / 10);
+}

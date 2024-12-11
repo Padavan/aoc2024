@@ -7,14 +7,8 @@
 #include <sys/types.h>
 
 #include "utils.h"
-#define LONG_MAX 9223372036854775807
 
 enum OPERATION { ADD = '+', MULTIPLY = '*', CONCAT = '@' };
-
-int number_of_digits(long long number) {
-  if (number < 10) return 1;
-  return 1 + number_of_digits(number / 10);
-}
 
 long long apply_combination(char* combination, long long numbers[],
                             int operation_count) {
@@ -26,7 +20,7 @@ long long apply_combination(char* combination, long long numbers[],
     } else if (combination[i] == '*') {
       result = result * numbers[i + 1];
     } else if (combination[i] == '@') {
-      int digit_count = number_of_digits(numbers[i + 1]);
+      int digit_count = get_digit_count(numbers[i + 1]);
       long long change_digita_position = power(10, digit_count);
       result = (result * change_digita_position) + numbers[i + 1];
     }

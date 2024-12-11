@@ -20,4 +20,6 @@ bool arr_includes(int list[][2], int lenght, int target_point[2]);
 
 int power(int base, int exp);
 
+int get_digit_count(long long number);
+
 #endif /*  ADVENT_UTILS_H__  */
