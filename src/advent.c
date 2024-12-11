@@ -1,4 +1,5 @@
 #include "day1.h"
+#include "day10.h"
 #include "day2.h"
 #include "day3.h"
 #include "day4.h"
@@ -19,7 +20,8 @@ int main(int argc, char* argv[]) {
            // + run_day6()
            // + run_day7()
            // + run_day8()
-           + run_day9();
+           // + run_day9();
+           + run_day10();
 
   return status;
 }

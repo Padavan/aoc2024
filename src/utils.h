@@ -16,6 +16,8 @@ int get_line_count(char filepath[]);
 
 bool includes(int* list, int target);
 
+bool arr_includes(int list[][2], int lenght, int target_point[2]);
+
 int power(int base, int exp);
 
 #endif /*  ADVENT_UTILS_H__  */

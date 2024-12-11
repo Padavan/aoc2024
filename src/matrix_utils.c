@@ -16,6 +16,18 @@ void print_char_matrix(int width, int height, char** matrix) {
   return;
 }
 
+void print_int_matrix(int width, int height, int** matrix) {
+  printf("printing matrix...\n");
+  for (int row = 0; row < height; row++) {
+    for (int col = 0; col < width; col++) {
+      printf(" %d ", matrix[row][col]);
+    }
+    printf("\n");
+  }
+
+  return;
+}
+
 int* move_point(int first[2], int second[2]) {
   int* result = malloc(sizeof(int) * 2);
   result[0] = first[0] + second[0];

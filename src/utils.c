@@ -79,6 +79,15 @@ bool includes(int* list, int target) {
   return false;
 }
 
+bool arr_includes(int list[][2], int lenght, int target_point[2]) {
+  for (int i = 0; i < lenght; i++) {
+    if (list[i][0] == target_point[0] && list[i][1] == target_point[1]) {
+      return true;
+    }
+  }
+  return false;
+}
+
 int power(int base, int exp) {
   int result = 1;
   for (;;) {
