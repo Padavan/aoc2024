@@ -1,5 +1,5 @@
-CC=tcc
-CFLAGS=-I./src
+CC=clang
+CFLAGS=-Wall -Wextra -I./src
 TESTDIR=tests
 DEPS=
 BUILD_DIR := build

@@ -30,14 +30,16 @@ int find_number_index(int list[], char ch) {
 
 // get substring
 char* get_substring(size_t start, size_t end, char string[]) {
+  // printf("get_substring: %ld, %ld \n", start, end);
   assert(end > start);
   size_t length = end - start;
 
-  char* substring = malloc(sizeof(char) * 2);
+  char* substring = malloc(sizeof(char) * (length + 1));
 
   for (size_t i = 0; i < length; i++) {
     substring[i] = string[i + start];
   }
+  substring[length] = '\0';
 
   return substring;
 }
@@ -58,7 +60,6 @@ int get_line_count(char filepath[]) {
 
   char* line = NULL;
   size_t len = 0;
-  ssize_t read;
 
   while ((getline(&line, &len, fp)) != -1) {
     line_count++;
@@ -79,8 +80,8 @@ bool includes(int* list, int target) {
   return false;
 }
 
-bool arr_includes(int list[][2], int lenght, int target_point[2]) {
-  for (int i = 0; i < lenght; i++) {
+bool arr_includes(size_t (*list)[2], size_t lenght, size_t target_point[2]) {
+  for (size_t i = 0; i < lenght; i++) {
     if (list[i][0] == target_point[0] && list[i][1] == target_point[1]) {
       return true;
     }

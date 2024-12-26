@@ -1,5 +1,6 @@
 #include "day3.h"
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -227,11 +228,9 @@ enum D_STATE d_step_state(enum D_STATE state, char current) {
 }
 
 // PART 2
-int day3part2(char inputpath[], int line_count) {
+int day3part2(char inputpath[]) {
   int result = 0;
-  int mul_count = 0;
 
-  size_t line_num = 0;
   char* line = NULL;
   size_t len = 0;
   ssize_t read;
@@ -245,7 +244,7 @@ int day3part2(char inputpath[], int line_count) {
     enum STATES current_state = '\0';
     enum D_STATE current_d_state = START;
 
-    for (int i = 0; i < strlen(line); i++) {
+    for (int i = 0; i < read; i++) {
       current_state = step_state(current_state, line[i]);
       current_d_state = d_step_state(current_d_state, line[i]);
 
@@ -261,12 +260,8 @@ int day3part2(char inputpath[], int line_count) {
         end_index = i;
         // we are throwing away mul(...), and only leaving space for
         // <number>,<number>
-        char* multiplier_str =
-            malloc(sizeof(char) * (end_index - start_index - 4));
-        memcpy(multiplier_str, line + start_index + 4,
-               end_index - start_index - 4);
+        char* multiplier_str = get_substring(start_index + 4, end_index, line);
 
-        mul_count++;
         int comma_index = find_character_index(multiplier_str, ',');
         char* first_number_str = get_substring(0, comma_index, multiplier_str);
         int first_number = atoi(first_number_str);
@@ -289,12 +284,9 @@ int day3part2(char inputpath[], int line_count) {
 }
 
 // PART 1
-
-int day3part1(char inputpath[], int line_count) {
+int day3part1(char inputpath[]) {
   int result = 0;
-  int mul_count = 0;
 
-  size_t line_num = 0;
   char* line = NULL;
   size_t len = 0;
   ssize_t read;
@@ -305,7 +297,7 @@ int day3part1(char inputpath[], int line_count) {
     int start_index = 0;
     int end_index = 0;
     enum STATES current_state = IDLE;
-    for (int i = 0; i < strlen(line); i++) {
+    for (int i = 0; i < (int)read; i++) {
       current_state = step_state(current_state, line[i]);
       if (current_state == M_CHAR) {
         start_index = i;
@@ -314,12 +306,8 @@ int day3part1(char inputpath[], int line_count) {
         end_index = i;
         // we are throwing away mul(...), and only leaving space for
         // <number>,<number>
-        char* multiplier_str =
-            malloc(sizeof(char) * (end_index - start_index - 4));
-        memcpy(multiplier_str, line + start_index + 4,
-               end_index - start_index - 4);
+        char* multiplier_str = get_substring(start_index + 4, end_index, line);
 
-        mul_count++;
         int comma_index = find_character_index(multiplier_str, ',');
         char* first_number_str = get_substring(0, comma_index, multiplier_str);
         int first_number = atoi(first_number_str);
@@ -342,18 +330,12 @@ int day3part1(char inputpath[], int line_count) {
 }
 
 int run_day3() {
-  int DAY = 3;
+  printf("Day 3: Mull It Over\n");
   char inputpath[] = "./input/day3.txt";
+  // char inputpath[] = "./input/day3-test.txt";
 
-  int line_count = get_line_count(inputpath);
-  if (line_count == 0) {
-    perror("There is no lines in puzzle input");
-    return 1;
-  }
-
-  printf("Day %d\n", DAY);
-  printf("\tPart 1: %d\n", day3part1(inputpath, line_count));
-  printf("\tPart 2: %d\n", day3part2(inputpath, line_count));
+  printf("\tPart 1: %d\n", day3part1(inputpath));
+  printf("\tPart 2: %d\n", day3part2(inputpath));
 
   return 0;
 }

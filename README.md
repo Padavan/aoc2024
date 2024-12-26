@@ -8,4 +8,9 @@ choose compiler in Makefile(CC). By default I use tiny c compiler (tcc).
 
 `make run` to compile and run.
 
-# 
+# Commands
+
+valgrind --tool=memcheck --leak-check=full -s ./build/advent
+
+
+

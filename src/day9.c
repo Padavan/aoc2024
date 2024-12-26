@@ -16,6 +16,10 @@ struct File {
 // PArt 1
 long long day9_part1(char* line, ssize_t length) {
   long long* expanded = malloc(sizeof(long long) * 100 * length);
+  for (ssize_t i = 0; i < (100 * length); i++) {
+    long long fill = 0;
+    expanded[i] = fill;
+  }
 
   // expand data
   ssize_t cursor = 0;
@@ -76,6 +80,10 @@ long long day9_part1(char* line, ssize_t length) {
 // PART 2
 long long day9_part2(char* line, ssize_t length) {
   int* expanded = malloc(sizeof(int) * 10 * length);
+  for (ssize_t i = 0; i < 10 * length; i++) {
+    int fill = -1;
+    expanded[i] = fill;
+  }
 
   // expand data
   int cursor = 0;
@@ -106,15 +114,23 @@ long long day9_part2(char* line, ssize_t length) {
   //   }
   // }
   // printf("\n");
+  assert(cursor > 1);
 
   // reformat data
   int left_start = 0;  // main
   int left_end = 0;
   int right_start = cursor - 1;
   int right_end = cursor - 1;  // main
-  int available_space = 0;
 
   while (0 < right_end) {
+    // give up searching for space
+    if (right_start <= left_start) {
+      left_start = 0;
+      left_end = 0;
+      right_end = right_start;
+      right_start = right_end;
+      continue;
+    }
     // if (right_start < 15) {
     // printf("while1 left: %d - %d\n", left_start, left_end);
     // printf("while2 right: %d - %d\n", right_start, right_end);
@@ -132,6 +148,8 @@ long long day9_part2(char* line, ssize_t length) {
     if (expanded[right_start] == expanded[right_end]) {
       // printf("\t right_left move: %d, %d , %d, %d \n", expanded[right_start],
       // expanded[right_end], right_start, right_end);
+      // right_start = right_start >= 1 ? right_start - 1 : 0;
+      // right_start = right_start > 0 ? right_start - 1 : 0;
       right_start--;
       continue;
     }
@@ -146,15 +164,6 @@ long long day9_part2(char* line, ssize_t length) {
     // move end of left cursor to file next to free space
     if (expanded[left_end] == expanded[left_start]) {
       left_end++;
-      continue;
-    }
-
-    // give up searching for space
-    if (right_start < left_start) {
-      left_start = 0;
-      left_end = 0;
-      right_end = right_start;
-      right_start = right_end;
       continue;
     }
 
@@ -198,9 +207,9 @@ long long day9_part2(char* line, ssize_t length) {
 
 int run_day9() {
   int DAY = 9;
+  printf("Day %d: Disk Fragmenter\n", DAY);
   // char inputpath[] = "./input/day9-test.txt";
   char inputpath[] = "./input/day9.txt";
-  printf("Day %d\n", DAY);
 
   long long part1_result = 0;
   long long part2_result = 0;
@@ -212,6 +221,7 @@ int run_day9() {
   FILE* fp;
   fp = fopen(inputpath, "r");
   while ((read = getline(&line, &len, fp)) != -1) {
+    assert(read > 0);
     part1_result = day9_part1(line, read);
     part2_result = day9_part2(line, read);
   }

@@ -16,7 +16,7 @@ int get_line_count(char filepath[]);
 
 bool includes(int* list, int target);
 
-bool arr_includes(int list[][2], int lenght, int target_point[2]);
+bool arr_includes(size_t list[][2], size_t lenght, size_t target_point[2]);
 
 int power(int base, int exp);
 

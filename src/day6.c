@@ -1,11 +1,12 @@
 #include "day6.h"
 
+#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "matrix_utils.h";
+#include "matrix_utils.h"
 
 enum DIRECTION {
   UP,
@@ -15,103 +16,119 @@ enum DIRECTION {
 };
 
 // row, col
-int increments[4][2] = {
+size_t patrol_inc[4][2] = {
     {-1, 0},
     {0, 1},
     {1, 0},
     {0, -1},
 };
 
-int does_it_loop(char** matrix, int height, int width, int start[2],
-                 int test_barrier[2]) {
-  // printf("new barrier: %d,%d\n", test_barrier[0], test_barrier[1]);
+bool does_it_loop(char** matrix, size_t height, size_t width, size_t start[2],
+                  size_t* test_barrier) {
   matrix[test_barrier[0]][test_barrier[1]] = '#';
+  // free(test_barrier);
 
-  int marked_points[8000][2];
-  int marked_points_count = 0;
-  int steps = 0;
+  size_t marked_points[50000][2] = {0};
+  size_t marked_points_count = 1;
+  size_t twice_visited_points = 0;
 
   enum DIRECTION direction = UP;
-  int current[2] = {start[0], start[1]};
-  int* next = move_point(current, increments[direction]);
+  size_t current[2] = {start[0], start[1]};
+  size_t* next = move_point(current, patrol_inc[direction]);
 
-  bool is_loop = false;
-
-  while (is_inbound(next, height, width) && steps < 8000) {
+  while (is_inbound(next, height, width) &&
+         twice_visited_points < marked_points_count) {
     if (matrix[next[0]][next[1]] == '#') {
       direction = (direction + 1) % 4;
-      next = move_point(current, increments[direction]);
+      size_t* nextnext = move_point(current, patrol_inc[direction]);
+      next[0] = nextnext[0];
+      next[1] = nextnext[1];
+      free(nextnext);
     } else {
       current[0] = next[0];
       current[1] = next[1];
-      matrix[current[0]][current[1]] = 'X';
-      steps++;
+      if (matrix[current[0]][current[1]] == 'X') {
+        twice_visited_points++;
+      } else {
+        twice_visited_points = 0;
+        matrix[current[0]][current[1]] = 'X';
+        marked_points[marked_points_count][0] = current[0];
+        marked_points[marked_points_count][1] = current[1];
+        marked_points_count++;
+      }
 
-      // bool point_already_marked = false;
-      // for (int i=0; i < marked_points_count; i++) {
-      //     if (marked_points[i][0] == current[0] && marked_points[i][1]
-      //     == current[1]) {
-      //         point_already_marked = true;
-      //     }
-      // }
-
-      // if (point_already_marked == false) {
-      //     marked_points[marked_points_count][0] = current[0];
-      //     marked_points[marked_points_count][1] = current[1];
-      //     marked_points_count++;
-      // }
-
-      next = move_point(next, increments[direction]);
+      size_t* nextnext = move_point(next, patrol_inc[direction]);
+      next[0] = nextnext[0];
+      next[1] = nextnext[1];
+      free(nextnext);
     }
   }
   free(next);
 
+  // clear
+  for (size_t i = 0; i < marked_points_count; i++) {
+    matrix[marked_points[i][0]][marked_points[i][1]] = '.';
+  }
   matrix[test_barrier[0]][test_barrier[1]] = '.';
 
-  if (steps == 8000) {
+  // printf("twice_visited_points: %ld / %ld \n", twice_visited_points,
+  // marked_points_count);
+  if (twice_visited_points == marked_points_count) {
     return true;
   } else {
     return false;
   }
 }
 
-int run_day6_part2(char** matrix, int height, int width, int start[2]) {
-  int marked_points[50000][2];
-  int marked_points_count = 1;
+int run_day6_part2(char** matrix, size_t height, size_t width,
+                   size_t start[2]) {
+  size_t marked_points[50000][2] = {0};
+  size_t marked_points_count = 1;
   marked_points[0][0] = start[0];
   marked_points[0][0] = start[1];
   enum DIRECTION direction = UP;
-  int current[2] = {start[0], start[1]};
-  int* next = move_point(current, increments[direction]);
+  size_t current[2] = {start[0], start[1]};
+  size_t* next = move_point(current, patrol_inc[direction]);
 
   while (is_inbound(next, height, width)) {
     if (matrix[next[0]][next[1]] == '#') {
+      // printf("barrier found: %d,%d\n", next[0], next[1]);
       direction = (direction + 1) % 4;
-      next = move_point(current, increments[direction]);
+      size_t* nextnext = move_point(current, patrol_inc[direction]);
+      next[0] = nextnext[0];
+      next[1] = nextnext[1];
+      free(nextnext);
     } else {
       current[0] = next[0];
       current[1] = next[1];
-      matrix[current[0]][current[1]] = 'X';
+      // printf("next step: %d,%d\n", current[0], current[1]);
+
+      // matrix[current[0]][current[1]] = 'X';
+
       bool point_already_marked = false;
-      for (int i = 0; i < marked_points_count; i++) {
+      for (size_t i = 0; i < marked_points_count; i++) {
         if (marked_points[i][0] == current[0] &&
             marked_points[i][1] == current[1]) {
           point_already_marked = true;
         }
       }
+
       if (point_already_marked == false) {
         marked_points[marked_points_count][0] = current[0];
         marked_points[marked_points_count][1] = current[1];
         marked_points_count++;
       }
 
-      next = move_point(next, increments[direction]);
+      size_t* nextnext = move_point(next, patrol_inc[direction]);
+      next[0] = nextnext[0];
+      next[1] = nextnext[1];
+      free(nextnext);
     }
   }
   free(next);
 
   int barrier_count = 0;
-  for (int i = 1; i < marked_points_count; i++) {
+  for (size_t i = 1; i < marked_points_count; i++) {
     if (does_it_loop(matrix, height, width, start, marked_points[i])) {
       barrier_count++;
     }
@@ -120,35 +137,34 @@ int run_day6_part2(char** matrix, int height, int width, int start[2]) {
   return barrier_count;
 }
 
-int run_day6_part1(char** matrix, int height, int width, int start[2]) {
-  // int *marked_points[2] = malloc(sizeof(int[2])*width*height);
-  int marked_points[50000][2];
-  // int* marked_points[width*height];
-  // for (int i = 0; i < width*height; i++)
-  //     marked_points[2] = (int*)malloc(2 * sizeof(int));
-  int marked_points_count = 1;
+int run_day6_part1(char** matrix, size_t height, size_t width,
+                   size_t start[2]) {
+  size_t marked_points[50000][2] = {0};
+  size_t marked_points_count = 1;
   marked_points[0][0] = start[0];
   marked_points[0][0] = start[1];
 
   enum DIRECTION direction = UP;
-  int current[2] = {start[0], start[1]};
-  int* next = move_point(current, increments[direction]);
+  size_t current[2] = {start[0], start[1]};
+  size_t* next = move_point(current, patrol_inc[direction]);
 
-  int move_count = 0;
   while (is_inbound(next, height, width)) {
     if (matrix[next[0]][next[1]] == '#') {
       // printf("barrier found: %d,%d\n", next[0], next[1]);
       direction = (direction + 1) % 4;
-      next = move_point(current, increments[direction]);
+      size_t* nextnext = move_point(current, patrol_inc[direction]);
+      next[0] = nextnext[0];
+      next[1] = nextnext[1];
+      free(nextnext);
     } else {
       current[0] = next[0];
       current[1] = next[1];
       // printf("next step: %d,%d\n", current[0], current[1]);
 
-      matrix[current[0]][current[1]] = 'X';
+      // matrix[current[0]][current[1]] = 'X';
 
       bool point_already_marked = false;
-      for (int i = 0; i < marked_points_count; i++) {
+      for (size_t i = 0; i < marked_points_count; i++) {
         if (marked_points[i][0] == current[0] &&
             marked_points[i][1] == current[1]) {
           point_already_marked = true;
@@ -161,8 +177,10 @@ int run_day6_part1(char** matrix, int height, int width, int start[2]) {
         marked_points_count++;
       }
 
-      next = move_point(next, increments[direction]);
-      move_count++;
+      size_t* nextnext = move_point(next, patrol_inc[direction]);
+      next[0] = nextnext[0];
+      next[1] = nextnext[1];
+      free(nextnext);
     }
   }
   free(next);
@@ -171,44 +189,51 @@ int run_day6_part1(char** matrix, int height, int width, int start[2]) {
 }
 
 int run_day6() {
-  int DAY = 6;
+  printf("Day 6: Guard Gallivant\n");
   // char inputpath[] = "./input/day6.txt";
   char inputpath[] = "./input/day6.txt";
-  printf("Day %d\n", DAY);
 
   FILE* fp;
   fp = fopen(inputpath, "r");
   char ch;
 
-  char content[1000000];
+  char content[1000000] = {0};
 
-  int i = 0;
-  int matrix_width = 0;
-  int matrix_height = 1;
+  size_t i = 0;
+  size_t matrix_size = 0;
+  size_t line = 1;
   do {
     ch = fgetc(fp);
     content[i] = ch;
     if (ch == '\n') {
-      if (matrix_height == 1) {
-        matrix_width = i;
+      if (line == 1) {
+        matrix_size = i;
       }
-      matrix_height++;
+      line++;
     }
     i++;
   } while (ch != EOF);
   fclose(fp);
 
-  char** matrix = malloc(sizeof(char*) * matrix_height);
-  for (int row = 0; row < matrix_height; row++) {
-    matrix[row] = malloc(sizeof(char) * matrix_width);
+  assert(matrix_size > 1);
+
+  char** matrix = malloc(sizeof(char*) * matrix_size);
+  for (size_t row = 0; row < matrix_size; row++) {
+    matrix[row] = malloc(sizeof(char) * matrix_size);
   }
 
-  int col = 0;
-  int row = 0;
+  for (size_t row = 0; row < matrix_size; row++) {
+    for (size_t col = 0; col < matrix_size; col++) {
+      matrix[row][col] = '.';
+    }
+  }
 
-  int start[2];
+  size_t col = 0;
+  size_t row = 0;
 
-  int index = 0;
+  size_t start[2];
+
+  size_t index = 0;
   while (content[index] != '\0') {
     char current = content[index];
 
@@ -221,7 +246,7 @@ int run_day6() {
       // printf("row: %d, col: %d \n", row, col);
 
       matrix[row][col] = current;
-      if (col == (matrix_width - 1)) {
+      if (col == (matrix_size - 1)) {
         row++;
         col = 0;
       } else {
@@ -231,11 +256,11 @@ int run_day6() {
   }
 
   printf("\tPart 1: %d\n",
-         run_day6_part1(matrix, matrix_height, matrix_width, start));
+         run_day6_part1(matrix, matrix_size, matrix_size, start));
   printf("\tPart 2: %d\n",
-         run_day6_part2(matrix, matrix_height, matrix_width, start));
+         run_day6_part2(matrix, matrix_size, matrix_size, start));
 
-  for (i = 0; i < matrix_height; ++i) free(matrix[i]);
+  for (size_t i = 0; i < matrix_size; ++i) free(matrix[i]);
   free(matrix);
 
   return 0;

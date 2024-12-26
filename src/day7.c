@@ -1,5 +1,6 @@
 #include "day7.h"
 
+#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -93,23 +94,19 @@ bool run_day7_part2(long long result, long long numbers[], int number_count) {
 };
 
 int run_day7() {
-  int DAY = 7;
+  printf("Day 7: Bridge Repair\n");
   // char inputpath[] = "./input/day7-test.txt";
   char inputpath[] = "./input/day7.txt";
-  printf("Day %d\n", DAY);
 
   long long part1_result = 0;
   long long part2_result = 0;
-  int valid_count = 0;
 
-  size_t line_num = 0;
   char* line = NULL;
   size_t len = 0;
-  ssize_t read;
 
   FILE* fp;
   fp = fopen(inputpath, "r");
-  while ((read = getline(&line, &len, fp)) != -1) {
+  while ((getline(&line, &len, fp)) != -1) {
     // size_t colon_index = find_character_index(line, ':');
     char result_str[20] = {0};
     size_t colon_index = 0;
@@ -121,12 +118,8 @@ int run_day7() {
     long long result = atol(result_str);
     char* rest = get_substring(colon_index + 2, strlen(line), line);
 
-    int space_count = 0;
     int index = colon_index + 2;
     while (line[index] != '\0') {
-      if (line[index] == ' ') {
-        space_count++;
-      }
       index++;
     }
 
@@ -141,9 +134,10 @@ int run_day7() {
       pch = strtok(NULL, " ");
     }
 
+    assert(number_count > 1);
+
     if (run_day7_part1(result, numbers, number_count)) {
       part1_result = part1_result + result;
-      valid_count++;
     }
 
     if (run_day7_part2(result, numbers, number_count)) {
@@ -152,7 +146,6 @@ int run_day7() {
 
     free(pch);
     free(rest);
-    line_num++;
   }
   fclose(fp);
   free(line);
