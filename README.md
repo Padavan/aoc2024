@@ -10,7 +10,14 @@ choose compiler in Makefile(CC). By default I use tiny c compiler (tcc).
 
 # Commands
 
-valgrind --tool=memcheck --leak-check=full -s ./build/advent
+valgrind --tool=memcheck --track-origins=yes --leak-check=full -s ./build/advent
 
 
 
+
+# day 16
+
+
+- path can be longer but with fewer turns
+- one path can be part of other path in begining/end/middle
+- removing unsuccessful parts can lead to removing succesful cells
