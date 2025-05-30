@@ -10,7 +10,10 @@ choose compiler in Makefile(CC). By default I use tiny c compiler (tcc).
 
 # Commands
 
-valgrind --tool=memcheck --track-origins=yes --leak-check=full -s ./build/advent
+```
+valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all -s ./build/advent
+
+```
 
 
 
