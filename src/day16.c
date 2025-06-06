@@ -1,5 +1,5 @@
-#include "matrix_utils.h"
-#include "utils.h"
+#include "../include/matrix_utils.h"
+#include "../include/utils.h"
 #include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>

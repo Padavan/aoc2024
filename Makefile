@@ -1,32 +1,48 @@
-CC=clang
-CFLAGS=-Wall -Wextra -I./src
-TESTDIR=tests
-DEPS=
-BUILD_DIR := build
-SRC_DIR=src
-TESTS_DIR=testc
+CC=clang-16
 LINTER=clang-tidy-16
 FORMATTER=clang-format-16
- 
+# -pedantic
+
+BUILD_DIR := build
+BIN_DIR := bin
+TESTS_DIR := tests
+BUILD_TEST_DIR := build
+SRC_DIR := src
+INCLUDE_DIR := include
+TESTS_DIR=tests
+
+CFLAGS=-g -O0 -Wall -Wextra -I./$(INCLUDE_DIR)
+
 PROGRAM := advent
+TEST_PROGRAM := test
 
-SRCS := $(shell find $(SRC_DIR) -name *.c -exec basename {} \;)
-OBJS := $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRCS))
+SRCS := $(shell find $(SRC_DIR) -name *.c -not -name "advent.c" -exec basename {} \;)
+TSTS := $(shell find $(TESTS_DIR) -name *.c -exec basename {} \;)
 
-build/%.o: src/%.c
-	@echo "Creating object: $@"
+EXE_OBJS = $(BUILD_DIR)/advent.o
+EXE_FILES = $(SRC_DIR)/advent.c
+SHARED_OBJS = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRCS))
+SHARED_FILES = $(patsubst %.c,$(SRC_DIR)/%.o,$(SRCS))
+TEST_OBJS = $(patsubst %.c,$(BUILD_DIR)/%.o,$(TSTS))
+TEST_FILES = $(patsubst %.c,$(TESTS_DIR)/%.o,$(TSTS))
+
+### TARGETS ###
+
+all: init build/$(PROGRAM)
+
+build/%_test.o: tests/%_test.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(PROGRAM): $(OBJS)
-	@echo "Making executable"
-	@echo $(OBJS)
-	mkdir -p $(BUILD_DIR)
-	$(CC) -o build/advent $(OBJS) $(CFLAGS)
-	@rm $(BUILD_DIR)/*.o
+build/%.o: src/%.c
+	$(CC) -c -o $@ $< $(CFLAGS)
 
-test: test/%.c
-	@$(CC) $(CFLAGS) -lcunit -o $(BIN_DIR)/$(NAME)_test $(TESTS_DIR)/*.c
-	@$(BIN_DIR)/$(NAME)_test
+
+build/$(PROGRAM): $(EXE_OBJS) $(SHARED_OBJS)
+	@echo "Making executable"
+	$(CC) $(CFLAGS) -o $@ $^
+
+build/test: init $(SHARED_OBJS) $(TEST_OBJS)
+	@$(CC) $(CFLAGS) $(SHARED_OBJS) $(TEST_OBJS) -lcheck -pthread -lrt -lm -lsubunit -o $(BUILD_DIR)/test
 
 lint:
 	@echo "Linting..."
@@ -36,11 +52,18 @@ format:
 	@echo "Formatting..."
 	@$(FORMATTER) --style=Google -i $(SRC_DIR)/*
 
-.PHONY: clean
+init:
+	@mkdir -p $(BUILD_DIR) $(BIN_DIR)
+
 
 clean:
-	@echo "Cleaning directory: $(BUILD_DIR)"
-	@rm -rf $(BUILD_DIR)/*.o
+	@echo "Cleaning directory: $(BUILD_DIR) $(BIN_DIR)"
+	@rm -rf $(BUILD_DIR) $(BIN_DIR) $(BUILD_TEST_DIR)
 
-run: $(PROGRAM)
-	./$(BUILD_DIR)/$(PROGRAM) 
+run: init build/$(PROGRAM)
+	./$(BUILD_DIR)/$(PROGRAM)
+
+test: build/$(TEST_PROGRAM)
+	./$(BUILD_TEST_DIR)/$(TEST_PROGRAM)
+
+.PHONY: clean lint format test init all

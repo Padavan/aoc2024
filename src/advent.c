@@ -4,22 +4,23 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-// #include "day1.h"
-// #include "day10.h"
-// #include "day11.h"
-// #include "day12.h"
-// #include "day13.h"
-// #include "day14.h"
-// #include "day15.h"
-#include "day16.h"
-// #include "day2.h"
-// #include "day3.h"
-// #include "day4.h"
-// #include "day5.h"
-// #include "day6.h"
-// #include "day7.h"
-// #include "day8.h"
-// #include "day9.h"
+#include "../include/day1.h"
+#include "../include/day10.h"
+#include "../include/day11.h"
+#include "../include/day12.h"
+#include "../include/day13.h"
+#include "../include/day14.h"
+#include "../include/day15.h"
+#include "../include/day16.h"
+#include "../include/day17.h"
+#include "../include/day2.h"
+#include "../include/day3.h"
+#include "../include/day4.h"
+#include "../include/day5.h"
+#include "../include/day6.h"
+#include "../include/day7.h"
+#include "../include/day8.h"
+#include "../include/day9.h"
 
 void usage() {
   printf("usage: advent [options] \n");
@@ -57,12 +58,13 @@ int main(int argc, char* argv[]) {
       // run_day8();
       // run_day9();
       // run_day10();
-      // run_day11();
+      run_day11();
       // run_day12();
       // run_day13();
       // run_day14();
       // run_day15();
-      run_day16();
+      // run_day16();
+    	// run_day17();
       break;
     // case 1:
     //   run_day1();

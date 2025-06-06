@@ -16,6 +16,11 @@ valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds
 ```
 
 
+# ok makefile sources:
+
+https://stackoverflow.com/questions/75728275/multiple-definition-of-main-first-defined-here-when-using-cunit-tests
+
+
 
 
 # day 16

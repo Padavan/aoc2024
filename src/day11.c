@@ -1,4 +1,4 @@
-#include "day11.h"
+#include "../include/day11.h"
 
 #include <assert.h>
 #include <stdbool.h>
@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "utils.h"
+#include "../include/utils.h"
 
 struct Stone {
   long long value;
@@ -15,6 +15,12 @@ struct Stone {
 
 long long blinking_loop(struct Stone* stones, int stone_count, int cycle,
                         int cycle_limit) {
+
+	if (stone_count <= 0) {
+		free(stones);
+		return 0;
+	}
+
   struct Stone* new_stones = malloc(sizeof(struct Stone) * 2 * stone_count);
   int index = 0;
 
@@ -71,6 +77,7 @@ long long blinking_loop(struct Stone* stones, int stone_count, int cycle,
     free(new_stones);
     return result;
   } else {
+  	// free(new_stones);
     return blinking_loop(new_stones, index, cycle + 1, cycle_limit);
   }
 }

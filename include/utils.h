@@ -22,4 +22,8 @@ int power(int base, int exp);
 
 int get_digit_count(long long number);
 
+char* convert_to_string(int number);
+
+char get_digit_char(int digit);
+
 #endif /*  ADVENT_UTILS_H__  */
