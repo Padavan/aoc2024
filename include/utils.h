@@ -20,6 +20,8 @@ bool arr_includes(size_t list[][2], size_t lenght, size_t target_point[2]);
 
 int power(int base, int exp);
 
+long long llpower(long long base, long exp);
+
 int get_digit_count(long long number);
 
 char* convert_to_string(int number);

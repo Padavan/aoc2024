@@ -202,26 +202,19 @@ bool is_outputs_equal(struct OutputArray a, struct OutputArray b) {
 }
 
 long long int run_day17_part2(struct OutputArray program) {
-
-
-	// 164545562850300
 	struct Register new_initial_state = { 0, 0, 0 };
-
 	struct OutputArray candidate_output = run_program(new_initial_state, program);
 
-	// print_output_array(program);
-	// printf("\n");
-	// print_output_array(candidate_output);
-	// printf("\n");
-	// 164545703482188 too much
-	// 164545652295778
-	// 164545584905400
+	// last two digits changes while sort through one digit register
+	// and we doing additional loop for last two- numbers
+	for (long long int place = program.size - 1; place > 0; place--) {
+		while(program.size != candidate_output.size || program.arr[place] != candidate_output.arr[place]) {
+			new_initial_state.A = new_initial_state.A + llpower(8, place);
+			candidate_output = run_program(new_initial_state, program);
+		}
+	}
 
-	while (!is_outputs_equal(program, candidate_output) && new_initial_state.A < 100) {
-		printf("register A: %lld, output: ", new_initial_state.A);
-		print_output_array(candidate_output);
-		printf("\n");
-		// fflush(stdout);
+	while (!is_outputs_equal(program, candidate_output)) {
 		new_initial_state.A = new_initial_state.A + 1;
 		candidate_output = run_program(new_initial_state, program);
 	}
@@ -282,24 +275,10 @@ int run_day17() {
 	struct OutputArray output_part1 = run_program(state, program);
 	
 
-	// print_output_array(program);
-
 	printf("\tPart 1: ");
 	print_output_array(output_part1);
 	printf("\n");
 	printf("\tPart 2: %lld\n", run_day17_part2(program));
-	// 308205868
-	// 373309309
-	// 401543986
-	// 40210710958665 - 16 digits
-	// 145311500000000
-	// 164549079300000
-	// 164545589767869 okay but too high
-
-	// from 164542369987104 to  164545589767862 no match
-
-	// 164_542_369_987_104
-	// 164_545_589_767_862
 
 	return 0;
 }

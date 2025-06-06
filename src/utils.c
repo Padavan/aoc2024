@@ -101,6 +101,19 @@ int power(int base, int exp) {
   return result;
 }
 
+long long llpower(long long base, long exp) {
+  long long result = 1;
+  for (;;) {
+    if (exp & 1) result *= base;
+    exp >>= 1;
+    if (!exp) break;
+    base *= base;
+  }
+
+  return result;
+}
+
+
 int get_digit_count(long long number) {
   if (number < 10) return 1;
   return 1 + get_digit_count(number / 10);

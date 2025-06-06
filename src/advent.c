@@ -58,13 +58,13 @@ int main(int argc, char* argv[]) {
       // run_day8();
       // run_day9();
       // run_day10();
-      run_day11();
+      // run_day11();
       // run_day12();
       // run_day13();
       // run_day14();
       // run_day15();
       // run_day16();
-    	// run_day17();
+    	run_day17();
       break;
     // case 1:
     //   run_day1();
