@@ -50,7 +50,7 @@ lint:
 
 format:
 	@echo "Formatting..."
-	@$(FORMATTER) --style=Google -i $(SRC_DIR)/*
+	@$(FORMATTER) --style=Webkit -i $(SRC_DIR)/*
 
 init:
 	@mkdir -p $(BUILD_DIR) $(BIN_DIR)

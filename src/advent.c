@@ -22,63 +22,65 @@
 #include "../include/day8.h"
 #include "../include/day9.h"
 
-void usage() {
-  printf("usage: advent [options] \n");
-  printf("\t-d DAY \t\t Run specific day \n");
-  printf("\t-h \t\t Display this help and exit \n");
+void usage()
+{
+    printf("usage: advent [options] \n");
+    printf("\t-d DAY \t\t Run specific day \n");
+    printf("\t-h \t\t Display this help and exit \n");
 }
 
-int main(int argc, char* argv[]) {
-  char opt;
-  int day = -1;
-  while ((opt = getopt(argc, argv, "dh")) != -1) {
-    printf("opt: %c\n", opt);
-    switch (opt) {
-      case 'd':
-        printf("option: %s\n", optarg);
-        assert(optarg != NULL);
-        day = atoi(optarg);
-        break;
-      case 'h':
-        usage();
-        return 0;
-        // break;
+int main(int argc, char* argv[])
+{
+    char opt;
+    int day = -1;
+    while ((opt = getopt(argc, argv, "dh")) != -1) {
+        printf("opt: %c\n", opt);
+        switch (opt) {
+        case 'd':
+            printf("option: %s\n", optarg);
+            assert(optarg != NULL);
+            day = atoi(optarg);
+            break;
+        case 'h':
+            usage();
+            return 0;
+            // break;
+        }
     }
-  }
 
-  switch (day) {
+    switch (day) {
     case -1:
-      // run_day1();
-      // run_day2();
-      // run_day3();
-      // run_day4();
-      // run_day5();
-      // run_day6();
-      // run_day7();
-      // run_day8();
-      // run_day9();
-      // run_day10();
-      // run_day11();
-      // run_day12();
-      // run_day13();
-      // run_day14();
-      // run_day15();
-      // run_day16();
-    	run_day17();
-      break;
-    // case 1:
-    //   run_day1();
-    //   break;
-    // case 2:
-    //   // run_day2();
-    //   break;
-    // case 12:
-    //   run_day12();
-    //   break;
-    // case 13:
-    //   run_day13();
-    //   break;
-  }
+        // run_day1();
+        // run_day2();
+        // run_day3();
+        // run_day4();
+        // run_day5();
+        // run_day6();
+        // run_day7();
+        // run_day8();
+        // run_day9();
+        // run_day10();
+        // run_day11();
+        // run_day12();
+        // run_day13();
+        // run_day14();
+        // run_day15();
+        // run_day16();
+        run_day17();
+        break;
+        // case 1:
+        //   run_day1();
+        //   break;
+        // case 2:
+        //   // run_day2();
+        //   break;
+        // case 12:
+        //   run_day12();
+        //   break;
+        // case 13:
+        //   run_day13();
+        //   break;
+    }
 
-  return 0;
+    return 0;
 }

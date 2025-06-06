@@ -7,115 +7,118 @@
 
 #include "utils.h"
 
-int part1(char inputpath[], int line_count) {
-  assert(line_count > 0);
-  int* first_col = malloc(line_count * sizeof(int));
-  int* second_col = malloc(line_count * sizeof(int));
+int part1(char inputpath[], int line_count)
+{
+    assert(line_count > 0);
+    int* first_col = malloc(line_count * sizeof(int));
+    int* second_col = malloc(line_count * sizeof(int));
 
-  size_t line_num = 0;
-  char* line = NULL;
-  size_t len = 0;
-  ssize_t read;
+    size_t line_num = 0;
+    char* line = NULL;
+    size_t len = 0;
+    ssize_t read;
 
-  FILE* fp;
-  fp = fopen(inputpath, "r");
-  while ((read = getline(&line, &len, fp)) != -1) {
-    size_t whitespace_index = find_character_index(line, ' ');
-    char* first_part = get_substring(0, whitespace_index, line);
-    int first_number = atoi(first_part);
-    free(first_part);
-    char* second_part = get_substring(whitespace_index + 1, read, line);
-    int second_number = atoi(second_part);
-    free(second_part);
+    FILE* fp;
+    fp = fopen(inputpath, "r");
+    while ((read = getline(&line, &len, fp)) != -1) {
+        size_t whitespace_index = find_character_index(line, ' ');
+        char* first_part = get_substring(0, whitespace_index, line);
+        int first_number = atoi(first_part);
+        free(first_part);
+        char* second_part = get_substring(whitespace_index + 1, read, line);
+        int second_number = atoi(second_part);
+        free(second_part);
 
-    first_col[line_num] = first_number;
-    second_col[line_num] = second_number;
-    line_num++;
-  }
-  fclose(fp);
-  free(line);
-
-  qsort(first_col, line_count, sizeof(int), integer_comp);
-  qsort(second_col, line_count, sizeof(int), integer_comp);
-
-  int result = 0;
-  for (int i = 0; i < line_count; i++) {
-    result = result + abs(first_col[i] - second_col[i]);
-  }
-
-  free(first_col);
-  free(second_col);
-
-  return result;
-}
-
-int get_number_occurance(int* sorted_arr, int line_count, int target) {
-  int occurance = 0;
-  for (int i = 0; i < line_count; i++) {
-    if (sorted_arr[i] == target) {
-      occurance = occurance + 1;
+        first_col[line_num] = first_number;
+        second_col[line_num] = second_number;
+        line_num++;
     }
-    if (target < sorted_arr[i]) {
-      break;
+    fclose(fp);
+    free(line);
+
+    qsort(first_col, line_count, sizeof(int), integer_comp);
+    qsort(second_col, line_count, sizeof(int), integer_comp);
+
+    int result = 0;
+    for (int i = 0; i < line_count; i++) {
+        result = result + abs(first_col[i] - second_col[i]);
     }
-  }
 
-  return occurance;
+    free(first_col);
+    free(second_col);
+
+    return result;
 }
 
-int part2(char inputpath[], int line_count) {
-  assert(line_count > 0);
-  int first_col[1000] = {0};
-  int second_col[1000] = {0};
+int get_number_occurance(int* sorted_arr, int line_count, int target)
+{
+    int occurance = 0;
+    for (int i = 0; i < line_count; i++) {
+        if (sorted_arr[i] == target) {
+            occurance = occurance + 1;
+        }
+        if (target < sorted_arr[i]) {
+            break;
+        }
+    }
 
-  size_t line_num = 0;
-  char* line = NULL;
-  size_t len = 0;
-  ssize_t read;
-
-  FILE* fp;
-  fp = fopen(inputpath, "r");
-  while ((read = getline(&line, &len, fp)) != -1) {
-    size_t whitespace_index = find_character_index(line, ' ');
-    char* first_part = get_substring(0, whitespace_index, line);
-    int first_number = atoi(first_part);
-    free(first_part);
-    char* second_part = get_substring(whitespace_index + 1, read, line);
-    int second_number = atoi(second_part);
-    free(second_part);
-
-    first_col[line_num] = first_number;
-    second_col[line_num] = second_number;
-    line_num++;
-  }
-  fclose(fp);
-  free(line);
-
-  qsort(second_col, line_count, sizeof(int), integer_comp);
-
-  int result = 0;
-  for (int i = 0; i < line_count; i++) {
-    int target_number = first_col[i];
-    int current_occurance =
-        get_number_occurance(second_col, line_count, first_col[i]);
-    result = (current_occurance * target_number) + result;
-  }
-
-  return result;
+    return occurance;
 }
 
-int run_day1() {
-  printf("Day 1: Historian Hysteria\n");
-  char inputpath[] = "./input/day1.txt";
+int part2(char inputpath[], int line_count)
+{
+    assert(line_count > 0);
+    int first_col[1000] = { 0 };
+    int second_col[1000] = { 0 };
 
-  int line_count = get_line_count(inputpath);
-  if (line_count == 0) {
-    perror("There is no lines in puzzle input");
-    return 1;
-  }
+    size_t line_num = 0;
+    char* line = NULL;
+    size_t len = 0;
+    ssize_t read;
 
-  printf("\tPart 1: %d\n", part1(inputpath, line_count));
-  printf("\tPart 2: %d\n", part2(inputpath, line_count));
+    FILE* fp;
+    fp = fopen(inputpath, "r");
+    while ((read = getline(&line, &len, fp)) != -1) {
+        size_t whitespace_index = find_character_index(line, ' ');
+        char* first_part = get_substring(0, whitespace_index, line);
+        int first_number = atoi(first_part);
+        free(first_part);
+        char* second_part = get_substring(whitespace_index + 1, read, line);
+        int second_number = atoi(second_part);
+        free(second_part);
 
-  return 0;
+        first_col[line_num] = first_number;
+        second_col[line_num] = second_number;
+        line_num++;
+    }
+    fclose(fp);
+    free(line);
+
+    qsort(second_col, line_count, sizeof(int), integer_comp);
+
+    int result = 0;
+    for (int i = 0; i < line_count; i++) {
+        int target_number = first_col[i];
+        int current_occurance = get_number_occurance(second_col, line_count, first_col[i]);
+        result = (current_occurance * target_number) + result;
+    }
+
+    return result;
+}
+
+int run_day1()
+{
+    printf("Day 1: Historian Hysteria\n");
+    char inputpath[] = "./input/day1.txt";
+
+    int line_count = get_line_count(inputpath);
+    if (line_count == 0) {
+        perror("There is no lines in puzzle input");
+        return 1;
+    }
+
+    printf("\tPart 1: %d\n", part1(inputpath, line_count));
+    printf("\tPart 2: %d\n", part2(inputpath, line_count));
+
+    return 0;
 }
