@@ -1,5 +1,3 @@
-#include "../include/day17.h"
-
 #include <assert.h>
 #include <check.h>
 #include <stdbool.h>
@@ -8,13 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../include/day17.h"
 #include "../include/utils.h"
-
-// struct Register {
-// 	int A;
-// 	int B;
-// 	int C;
-// };
 
 long long int
 combo_operand(struct Register state, long long int operand)

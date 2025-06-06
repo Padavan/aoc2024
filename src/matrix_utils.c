@@ -1,4 +1,4 @@
-#include "matrix_utils.h"
+#include "../include/matrix_utils.h"
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -37,7 +37,7 @@ void print_int_matrix(size_t width, size_t height, size_t** matrix)
     printf("printing matrix...\n");
     for (size_t row = 0; row < height; row++) {
         for (size_t col = 0; col < width; col++) {
-            printf(" %5ld ", matrix[row][col]);
+            printf(" %2ld ", matrix[row][col]);
         }
         printf("\n");
     }
@@ -83,6 +83,15 @@ bool is_inbound(size_t point[2], size_t width, size_t height)
     size_t y = point[1];
 
     if (x >= 0 && x < width && y >= 0 && y < height) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool is_coord_inbound(struct Point point, size_t width, size_t height)
+{
+    if (point.col >= 0 && point.col < width && point.row >= 0 && point.row < height) {
         return true;
     } else {
         return false;

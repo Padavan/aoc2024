@@ -13,6 +13,7 @@
 #include "../include/day15.h"
 #include "../include/day16.h"
 #include "../include/day17.h"
+#include "../include/day18.h"
 #include "../include/day2.h"
 #include "../include/day3.h"
 #include "../include/day4.h"
@@ -66,7 +67,8 @@ int main(int argc, char* argv[])
         // run_day14();
         // run_day15();
         // run_day16();
-        run_day17();
+        // run_day17();
+        run_day18();
         break;
         // case 1:
         //   run_day1();

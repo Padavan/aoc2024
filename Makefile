@@ -66,4 +66,7 @@ run: init build/$(PROGRAM)
 test: build/$(TEST_PROGRAM)
 	./$(BUILD_TEST_DIR)/$(TEST_PROGRAM)
 
-.PHONY: clean lint format test init all
+memcheck: init build/$(PROGRAM)
+	valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all -s ./build/$(PROGRAM)
+
+.PHONY: clean lint format test memcheck init all
