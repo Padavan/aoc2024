@@ -29,3 +29,31 @@ https://stackoverflow.com/questions/75728275/multiple-definition-of-main-first-d
 - path can be longer but with fewer turns
 - one path can be part of other path in begining/end/middle
 - removing unsuccessful parts can lead to removing succesful cells
+
+# day 19
+```
+(0 1 2 3) (0 1 2) (0 1) (0) = 9
+(0 1 2) (0 1) (1) = 4
+
+
+
+4*3*2*1 
+overlapping : - (3*2 + 2*1) + (4 * 2)
+compensate: + 1
+
+
+4*(3-)*(2-1)*(1)
+=9
+
+
+
+
+
+a b c
+ab b c
+a bc c
+ab bc c (no)
+abc c
+abc bc c (no)
+=4
+```

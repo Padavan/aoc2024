@@ -1,6 +1,4 @@
 #include <check.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "../include/runner_test.h"
 
@@ -12,6 +10,7 @@ int main(void) {
 
 	suite_add_tcase(s1, make_day17_case());
 	suite_add_tcase(s1, make_utils_case());
+	suite_add_tcase(s1, make_day19_case());
 
 	srunner_run_all(sr, CK_ENV);
 	number_of_failed = srunner_ntests_failed(sr);

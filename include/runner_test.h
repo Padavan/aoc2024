@@ -5,6 +5,7 @@
 
 TCase *make_day17_case(void);
 TCase *make_utils_case(void);
+TCase *make_day19_case(void);
 
 
 #endif /*  RUNNER_TEST_H__  */
