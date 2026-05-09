@@ -1,36 +1,28 @@
 #ifndef DAY_19_H__
 #define DAY_19_H__
 
+#include <stddef.h>
 typedef struct {
 	char chars[100];
-	int lenght;
+	int size;
 } Pattern;
 
-// typedef struct {
-	// char* chars;
-	// int lenght;
-// } String;
-
 typedef struct {
-	Pattern items[500];
-	int lenght;
+	Pattern items[1000];
+	int size;
 } List;
 
-struct Component {
-	int items[500];
-	int size;
-};
+typedef struct {
+	Pattern* keys;
+	size_t* values;
+	size_t size;
+}  Cache;
 
-struct ComponentList {
-	struct Component items[500];
-	int size;
-};
 
-long long count_combos(struct ComponentList* mapping);
-
-bool check_design(Pattern design, List pattern_list, int skip_pattern, List* components);
-
-Pattern combine_patterns(Pattern a, Pattern b);
+void set_cache(Cache* cache, Pattern pattern, size_t value);
+int get_cached_idx(Cache* cache, Pattern pattern);
+void print_cache(Cache* cache);
+size_t check_design(Pattern design, List* pattern_list,  Cache* cache);
 
 int run_day19();
 

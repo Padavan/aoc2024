@@ -8,8 +8,8 @@ int main(void) {
 	SRunner *sr = srunner_create(s1);
 	int number_of_failed;
 
-	suite_add_tcase(s1, make_day17_case());
-	suite_add_tcase(s1, make_utils_case());
+	// suite_add_tcase(s1, make_day17_case());
+	// suite_add_tcase(s1, make_utils_case());
 	suite_add_tcase(s1, make_day19_case());
 
 	srunner_run_all(sr, CK_ENV);

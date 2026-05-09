@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <utils.h>
 
 int find_character_index(char str[], char ch)
 {
@@ -226,4 +227,11 @@ char get_digit_char(int digit)
         break;
     }
     return digitchar;
+}
+
+string8 str8_substr(string8 str, u64 start, u64 end)
+{
+    end = MIN(end, str.size);
+    start = MIN(start, end);
+    return (string8) { str.str + start, end - start };
 }

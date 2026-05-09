@@ -35,7 +35,14 @@ https://stackoverflow.com/questions/75728275/multiple-definition-of-main-first-d
 (0 1 2 3) (0 1 2) (0 1) (0) = 9
 (0 1 2) (0 1) (1) = 4
 
+3 * ( 2 * x )
+2 * ( 3 * x )
+2 * ( 4 * x )
+1 * ()
 
+
+3 * 2 + 2 * 3
+2* 3
 
 4*3*2*1 
 overlapping : - (3*2 + 2*1) + (4 * 2)
@@ -56,4 +63,20 @@ ab bc c (no)
 abc c
 abc bc c (no)
 =4
+```
+
+
+```
+(012) (012) (01) (0)
+abcd
+
+ab: 2*2
+abc: 2*2+1
+bc: 1
+bcd: 1
+
+total: 18
+overlapping: 11
+result: 
+7
 ```

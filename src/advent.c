@@ -14,6 +14,7 @@
 #include "../include/day16.h"
 #include "../include/day17.h"
 #include "../include/day18.h"
+#include "../include/day19.h"
 #include "../include/day2.h"
 #include "../include/day3.h"
 #include "../include/day4.h"
@@ -22,37 +23,36 @@
 #include "../include/day7.h"
 #include "../include/day8.h"
 #include "../include/day9.h"
-#include "../include/day19.h"
 
 void usage()
 {
-	printf("usage: advent [options] \n");
-	printf("\t-d DAY \t\t Run specific day \n");
-	printf("\t-h \t\t Display this help and exit \n");
+    printf("usage: advent [options] \n");
+    printf("\t-d DAY \t\t Run specific day \n");
+    printf("\t-h \t\t Display this help and exit \n");
 }
 
 int main()
 {
 
-	// run_day1();
-	// run_day2();
-	// run_day3();
-	// run_day4();
-	// run_day5();
-	// run_day6();
-	// run_day7();
-	// run_day8();
-	// run_day9();
-	// run_day10();
-	// run_day11();
-	// run_day12();
-	// run_day13();
-	// run_day14();
-	// run_day15();
-	// run_day16();
-	// run_day17();
-	// run_day18();
-	run_day19();
-		
-	return 0;
+    // run_day1();
+    // run_day2();
+    // run_day3();
+    // run_day4();
+    // run_day5();
+    // run_day6();
+    // run_day7();
+    // run_day8();
+    // run_day9();
+    // run_day10();
+    // run_day11();
+    // run_day12();
+    // run_day13();
+    // run_day14();
+    // run_day15();
+    // run_day16();
+    // run_day17();
+    // run_day18();
+    run_day19();
+
+    return 0;
 }
