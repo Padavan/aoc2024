@@ -80,6 +80,7 @@ PointList bfs(Point start, Point finish, int** matrix, int matrix_size)
         Point target_node = target.items[target.size - 1];
 
         if (target_node.row == finish.row && target_node.col == finish.col) {
+        	free(queue.items);
             return target;
         }
 
@@ -106,7 +107,6 @@ PointList bfs(Point start, Point finish, int** matrix, int matrix_size)
     }
 
     free(queue.items);
-
     return initial_path;
 }
 
