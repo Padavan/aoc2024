@@ -15,6 +15,7 @@
 #include "../include/day17.h"
 #include "../include/day18.h"
 #include "../include/day19.h"
+#include "../include/day20.h"
 #include "../include/day2.h"
 #include "../include/day3.h"
 #include "../include/day4.h"
@@ -52,7 +53,8 @@ int main()
     // run_day16();
     // run_day17();
     // run_day18();
-    run_day19();
+    // run_day19();
+    run_day20();
 
     return 0;
 }

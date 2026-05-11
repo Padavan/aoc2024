@@ -12,7 +12,7 @@ size_t directions[4][2] = {
     { 0, 1 } // right
 };
 
-struct Point directions_coord[4] = {
+Point directions_coord[4] = {
     { -1, 0 }, // up
     { 0, -1 }, // left
     { 1, 0 }, // down

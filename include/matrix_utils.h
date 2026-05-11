@@ -3,11 +3,13 @@
 #include <stdbool.h>
 #include <sys/types.h>
 
-struct Point {
-	size_t row;
-	size_t col;
-	// size_t dir;
-};
+typedef struct Point {
+	int row;
+	int col;
+	// int dir;
+	int rank;
+	int count;
+} Point;
 
 extern size_t directions[4][2];
 
