@@ -8,7 +8,7 @@ typedef struct Point {
 	int col;
 	// int dir;
 	int rank;
-	int count;
+	// int count;
 } Point;
 
 extern size_t directions[4][2];
